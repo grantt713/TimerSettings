@@ -21,9 +21,9 @@ int SEC_FIN2, MIN_FIN2, HR_FIN2;
 int DONE = 0, DONE2 = 0;
 
 int BUTT = 2;
-int BUTT_READ;
+boolean BUTT_READ;
 int BUTT2 = 3; 
-int BUTT_READ2;
+boolean BUTT_READ2;
 
 
 int LDR_IN = A0;
@@ -95,7 +95,25 @@ int DisplayFunction2(int hours, int minutes, int seconds){
   
  /************************************************************************************************/
  
+/******************************************** Function to Debounce PBs **************************/
+boolean Debounce1(boolean State){
+  boolean StateNow = digitalRead(BUTT);
+  if(State!=StateNow){
+    delay(10);
+    StateNow = digitalRead(BUTT);
+  }
+  return StateNow;
+}
 
+boolean Debounce2(boolean State){
+  boolean StateNow = digitalRead(BUTT2);
+  if(State!=StateNow){
+    delay(10);
+    StateNow = digitalRead(BUTT2);
+  }
+  return StateNow;
+}
+/************************************************************************************************/
 
 
 /*************************************   SETUP   **********************************************/
@@ -128,7 +146,7 @@ void loop() {
  MIN = OSEC % 3600UL / 60UL;
  SEC = OSEC % 3600UL % 60UL;
 
- BUTT_READ = digitalRead(BUTT);
+
 
  
 // Serial.print("Time- "); Serial.print(OTIME[0]);Serial.print(" : ");Serial.print(OTIME[1]);Serial.print(" : "); Serial.println(OTIME[2]);
@@ -148,7 +166,9 @@ void loop() {
        lcd.print("Button to Cont");
       
        LDR_SET = analogRead(LDR_IN);
-        
+       
+       BUTT_READ = digitalRead(BUTT); 
+       BUTT_READ = Debounce1(BUTT_READ);
        if (BUTT_READ == HIGH){
            DONE = 1;
         }
@@ -164,6 +184,8 @@ void loop() {
        lcd.setCursor(4, 1);       // cursor on column 4, line 1
        DisplayFunction(HR,MIN,SEC);  
 
+       BUTT_READ = digitalRead(BUTT); 
+       BUTT_READ = Debounce1(BUTT_READ);
        if (BUTT_READ == HIGH){
             DONE = 0;
        }
@@ -190,6 +212,8 @@ void loop() {
 
        DONE = 2;
 
+         BUTT_READ = digitalRead(BUTT); 
+         BUTT_READ = Debounce1(BUTT_READ);
          if (BUTT_READ == HIGH){
           DONE = 0;
          }
@@ -218,6 +242,8 @@ void loop() {
    }
 
  if(DONE == 3){
+      BUTT_READ = digitalRead(BUTT); 
+      BUTT_READ = Debounce1(BUTT_READ);
       if (BUTT_READ == HIGH){
           DONE = 0;
       }
@@ -233,7 +259,7 @@ void loop() {
  MIN2 = OSEC % 3600UL / 60UL;
  SEC2 = OSEC % 3600UL % 60UL;
 
- BUTT_READ2 = digitalRead(BUTT2);
+ 
 
  
 // Serial.print("Time- "); Serial.print(OTIME[0]);Serial.print(" : ");Serial.print(OTIME[1]);Serial.print(" : "); Serial.println(OTIME[2]);
@@ -252,7 +278,9 @@ void loop() {
         lcd2.print("Button to Cont");
       
         LDR_SET2 = analogRead(LDR_IN2);
-        
+
+        BUTT_READ2 = digitalRead(BUTT2);
+        BUTT_READ2 = Debounce2(BUTT_READ2);
         if (BUTT_READ2 == HIGH){
               DONE2 = 1;
   }
@@ -268,6 +296,8 @@ void loop() {
        lcd2.setCursor(4, 1);       // cursor on column 4, line 1
        DisplayFunction2(HR2,MIN2,SEC2);   
 
+       BUTT_READ2 = digitalRead(BUTT2);
+       BUTT_READ2 = Debounce2(BUTT_READ2);
        if (BUTT_READ == HIGH){
             DONE = 0;
        }
@@ -292,6 +322,8 @@ void loop() {
 
        DONE2 = 2;
 
+       BUTT_READ2 = digitalRead(BUTT2);
+       BUTT_READ2 = Debounce2(BUTT_READ2);
        if (BUTT_READ2 == HIGH){
           DONE2 = 0;
        }
@@ -320,6 +352,8 @@ void loop() {
    }
 
  if(DONE2 == 3){
+      BUTT_READ2 = digitalRead(BUTT2);
+      BUTT_READ2 = Debounce2(BUTT_READ2);
       if (BUTT_READ2 == HIGH){
           DONE2 = 0;
       }
