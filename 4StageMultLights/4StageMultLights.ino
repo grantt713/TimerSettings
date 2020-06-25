@@ -38,7 +38,7 @@ int SEC_FIN3, MIN_FIN3, HR_FIN3;
 
 int OSEC_ON, OSEC_ON2, OSEC_ON3;  // overall millisecond count for when light is ON
 
-int DONE = 0, DONE2 = 0, DONE3; // used to transition stages/phases
+int DONE = 0, DONE2 = 0, DONE3=0; // used to transition stages/phases
 
 int BUTT = 2;           // button digital IO 2 or D2
 boolean BUTT_READ;      
