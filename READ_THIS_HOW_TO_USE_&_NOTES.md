@@ -1,5 +1,5 @@
 # TimerSettings
-Here lies all of the files to upload the code to the timer boxes and the STL files to reprint them if necessary. The code is written for Arduino Nano.
+Here lies all of the files to upload the code to the timer boxes, the STL files to reprint them if necessary, and schematics of how the box is wired. The code is written for Arduino Nano.
 
 How to Use Timer Box:
 1. With units remaining OFF, turn Box ON.
